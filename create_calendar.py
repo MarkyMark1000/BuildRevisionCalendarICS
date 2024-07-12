@@ -1,8 +1,9 @@
-
+from helpers.SchoolHolidays import SchoolHolidays
 
 def build_calendar():
 
-    pass
+    a = SchoolHolidays()
+
 
 if __name__ == "__main__":
 
