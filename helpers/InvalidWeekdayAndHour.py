@@ -4,10 +4,10 @@ class InvalidWeekdayAndHour():
 
     _data: list
 
-    def __init__(self):
+    def __init__(self, path='setup_data/Control Files/invalid_weekday_and_time.txt'):
 
         self._data = list()
-        with open('setup_data/Control Files/invalid_weekday_and_time.txt', 'r') as file:
+        with open(path, 'r') as file:
             for line in file:
 
                 line_strip = line.strip()

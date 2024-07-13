@@ -4,10 +4,10 @@ class InvalidDates():
 
     _data: list
 
-    def __init__(self):
+    def __init__(self, path='setup_data/Control Files/invalid_dates.txt'):
 
         self._data = list()
-        with open('setup_data/Control Files/invalid_dates.txt', 'r') as file:
+        with open(path, 'r') as file:
             for line in file:
 
                 date_value = line.strip()

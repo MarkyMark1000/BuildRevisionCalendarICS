@@ -4,10 +4,10 @@ class SchoolHolidays():
 
     _data: list
 
-    def __init__(self):
+    def __init__(self, path='setup_data/Control Files/school_holidays.txt'):
 
         self._data = list()
-        with open('setup_data/Control Files/school_holidays.txt', 'r') as file:
+        with open(path, 'r') as file:
             for line in file:
                 rdata = line.split(',')
                 start_date = rdata[0].strip()

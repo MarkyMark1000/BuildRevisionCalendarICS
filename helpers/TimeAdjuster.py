@@ -37,7 +37,6 @@ class TimeAdjuster():
             - school holidays and weekends (9am to 8pm)
             - normal school days (6pm to 8pm)
         '''
-        # breakpoint()    # year=2024, month=7, day=10, hour=18
 
         if input_datetime.hour == 12 or input_datetime.hour == 17:
             # It's lunchtime, we need a break

@@ -1,14 +1,14 @@
-Section 1 pages 1-4(do vocab list
-Section 1 pages 4-10(do vocab list
-Section 2 pages 11 to 13(do vocab list
-Section 2 pages 13 to 16(do vocab list
-section 3 pages 17 to 19(do vocab list
-Section 3 pages 19 to 22(do vocab list
-Section 4 pages 24 to 27(do vocab list
-section 5 pages 28(do vocab list
- Section 6 pages 31 to 34(do vocab list
-Section 6 pages 34 to 38(do vocab list
-Section 7 pages 39 to 41(do vocab list
+Section 1 pages 1-4(do vocab list)
+Section 1 pages 4-10(do vocab list)
+Section 2 pages 11 to 13(do vocab list)
+Section 2 pages 13 to 16(do vocab list)
+section 3 pages 17 to 19(do vocab list)
+Section 3 pages 19 to 22(do vocab list)
+Section 4 pages 24 to 27(do vocab list)
+section 5 pages 28(do vocab list)
+ Section 6 pages 31 to 34(do vocab list)
+Section 6 pages 34 to 38(do vocab list)
+Section 7 pages 39 to 41(do vocab list)
 Section 8 pages 42 to 46 (do vocab list)
 Section 9 pages 47 to 49 (do vocab list)
 Section 9 [ages 49 to 51 (do vocab list)
