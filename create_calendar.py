@@ -140,6 +140,6 @@ if __name__ == "__main__":
 
     # code to build the calendar 
 
-    start_datetime = datetime(year=2024, month=7, day=14, hour=9)
+    start_datetime = datetime(year=2024, month=7, day=20, hour=9)
 
     build_calendar(start_datetime)

@@ -1,11 +1,11 @@
-import datetime as dt, timedelta
+import datetime as dt
 
 datesteps = {
-    '1 day': timedelta(days=1),
-    '1 week': timedelta(days=7),
-    '1 month': timedelta(days=28),
-    '3 month': timedelta(days=84),
-    '6 month': timedelta(days=168),
+    '1 day': dt.timedelta(days=1),
+    '1 week': dt.timedelta(days=7),
+    '1 month': dt.timedelta(days=28),
+    '3 month': dt.timedelta(days=84),
+    '6 month': dt.timedelta(days=168),
 }
 
 
@@ -38,7 +38,7 @@ class TimeStepTransformer():
                 'title': subject + ' - ' + topic + ' - start'
             }
         }
-        current += timedelta(hours=1)
+        current += dt.timedelta(hours=1)
         ret[current.strftime('%d-%B-%Y %H')] = {
                 'datetime': current,
                 'title': subject + ' - ' + topic + ' - 1 hour'
