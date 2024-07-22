@@ -1,22 +1,22 @@
-import pytest
 import datetime as dt
 
-from ..helpers.TimeAdjuster import TimeAdjuster
-from ..helpers.SchoolHolidays import SchoolHolidays
+import pytest
+
 from ..helpers.InvalidDates import InvalidDates
 from ..helpers.InvalidWeekdayAndHour import InvalidWeekdayAndHour
+from ..helpers.SchoolHolidays import SchoolHolidays
+from ..helpers.TimeAdjuster import TimeAdjuster
 
 
 class TestTimeAdjuster:
-
-    '''
+    """
     Key test criterea:
         - lunch and dinner
         - invalid weekday and hours (setup data)
         - invalid dates (setup data)
         - school holidays and weekends (9am to 8pm)
         - normal school days (6pm to 8pm)
-    '''
+    """
 
     def setup_method(self):
         # setup the Time Adjuster, but don't make the other
@@ -25,9 +25,7 @@ class TestTimeAdjuster:
         objID = InvalidDates()
         objIWH = InvalidWeekdayAndHour()
         self.objTimeAdjuster = TimeAdjuster(
-            invalid_dates=objID,
-            school_holidays=objSH,
-            invalid_weekday_and_hour=objIWH
+            invalid_dates=objID, school_holidays=objSH, invalid_weekday_and_hour=objIWH
         )
 
     def test_lunch(self):
@@ -39,7 +37,7 @@ class TestTimeAdjuster:
         assert dt_test.year == new_date.year
         assert dt_test.month == new_date.month
         assert dt_test.day == new_date.day
-        assert dt_test.hour == new_date.hour-1
+        assert dt_test.hour == new_date.hour - 1
 
     def test_dinner(self):
 
@@ -50,7 +48,7 @@ class TestTimeAdjuster:
         assert dt_test.year == new_date.year
         assert dt_test.month == new_date.month
         assert dt_test.day == new_date.day
-        assert dt_test.hour == new_date.hour-1
+        assert dt_test.hour == new_date.hour - 1
 
     def test_invalid_weekday_and_time(self):
 

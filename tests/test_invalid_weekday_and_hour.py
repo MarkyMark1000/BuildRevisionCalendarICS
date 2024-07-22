@@ -1,7 +1,9 @@
-import pytest
 import datetime as dt
 
+import pytest
+
 from ..helpers.InvalidWeekdayAndHour import InvalidWeekdayAndHour
+
 
 class TestSchoolHolidays:
 

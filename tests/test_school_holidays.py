@@ -1,7 +1,9 @@
-import pytest
 import datetime as dt
 
+import pytest
+
 from ..helpers.SchoolHolidays import SchoolHolidays
+
 
 class TestSchoolHolidays:
 
