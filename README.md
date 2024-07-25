@@ -4,6 +4,14 @@
 This is for building a revision calendar for the kids to help with their
 revision timetable.
 
+## CONFIGURATION
+---
+
+These sources were used for the basis of our configuration files:
+
+.flake8 and pyproject.toml:
+https://www.mindee.com/blog/python-coding-practices
+
 ## PYTHON
 ---
 
