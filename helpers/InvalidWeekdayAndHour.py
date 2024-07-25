@@ -42,10 +42,7 @@ class InvalidWeekdayAndHour:
 
         ret = False
         for row in self._data:
-            if (
-                input_datetime.weekday() == row["weekday"]
-                and input_datetime.hour == row["hour"]
-            ):
+            if input_datetime.weekday() == row["weekday"] and input_datetime.hour == row["hour"]:
                 ret = True
                 break
 

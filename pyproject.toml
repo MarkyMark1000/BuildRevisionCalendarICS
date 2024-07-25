@@ -1,10 +1,15 @@
 [tool.black]
 line-length = 100
 skip-magic-trailing-comma = true
+extend-exclude = '''/venv'''
 
 [tool.isort]
 profile = "black"
 line_length = 100
+skip = [".gitignore", "venv", ".flake8", ".git"]
+
+[tool.pydocstyle]
+convention = "google"
 
 [tool.mypy]
 python_version = "3.9"
@@ -19,6 +24,3 @@ warn_return_any = true
 implicit_reexport = false
 strict_equality = true
 # --strict end
-
-[tool.pydocstyle]
-convention = "google"

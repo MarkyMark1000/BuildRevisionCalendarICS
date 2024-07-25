@@ -2,12 +2,16 @@ import datetime as dt
 from unittest import mock
 
 from ..helpers.constants import C_SCHOOLDAY_CUTOFF_HOUR
-from ..helpers.DateCheckers import (CheckInvalidDates,
-                                    CheckInvalidWeekdayAndHour,
-                                    CheckIsDinnerTime, CheckIsLunchTime,
-                                    CheckIsPastEndOfDay,
-                                    CheckSchoolHolidayTime, CheckSchoolTime,
-                                    SchoolHolidayData)
+from ..helpers.DateCheckers import (
+    CheckInvalidDates,
+    CheckInvalidWeekdayAndHour,
+    CheckIsDinnerTime,
+    CheckIsLunchTime,
+    CheckIsPastEndOfDay,
+    CheckSchoolHolidayTime,
+    CheckSchoolTime,
+    SchoolHolidayData,
+)
 
 
 class TestDateCheckers:
@@ -209,9 +213,7 @@ class TestDateCheckers:
 
     @mock.patch.object(CheckInvalidWeekdayAndHour, "_load_file")
     @mock.patch.object(SchoolHolidayData, "_load_school_holidays")
-    def test_school_holiday_time_early_but_ok(
-        self, mock_load_school_holidays, mock_load_file
-    ):
+    def test_school_holiday_time_early_but_ok(self, mock_load_school_holidays, mock_load_file):
 
         mock_load_file.return_value = [{"weekday": 0, "hour": 19}]
 
@@ -231,9 +233,7 @@ class TestDateCheckers:
 
     @mock.patch.object(CheckInvalidWeekdayAndHour, "_load_file")
     @mock.patch.object(SchoolHolidayData, "_load_school_holidays")
-    def test_school_holiday_time_match_invalid(
-        self, mock_load_school_holidays, mock_load_file
-    ):
+    def test_school_holiday_time_match_invalid(self, mock_load_school_holidays, mock_load_file):
 
         mock_load_file.return_value = [{"weekday": 0, "hour": 19}]
 

@@ -65,9 +65,7 @@ class TimeAdjuster:
         ) or input_datetime.weekday() in (5, 6):
             # Treat school holidays and weekends the same
             if input_datetime.hour > 20:
-                new_time = (input_datetime + dt.timedelta(days=1)).replace(
-                    hour=9, minute=0
-                )
+                new_time = (input_datetime + dt.timedelta(days=1)).replace(hour=9, minute=0)
                 self._log("4", new_time)
                 result = self.validate_or_find_next(new_time)
                 return result
@@ -75,17 +73,13 @@ class TimeAdjuster:
             # School day
             if input_datetime.hour < 18:
                 # During school day, so move to 6pm
-                new_time = input_datetime + dt.timedelta(
-                    hours=(18 - input_datetime.hour)
-                )
+                new_time = input_datetime + dt.timedelta(hours=(18 - input_datetime.hour))
                 self._log("5", new_time)
                 result = self.validate_or_find_next(new_time)
                 return result
             elif input_datetime.hour > 20:
                 # After 8pm so move to the next day
-                new_time = (input_datetime + dt.timedelta(days=1)).replace(
-                    hour=9, minute=0
-                )
+                new_time = (input_datetime + dt.timedelta(days=1)).replace(hour=9, minute=0)
                 self._log("6", new_time)
                 result = self.validate_or_find_next(new_time)
                 return result

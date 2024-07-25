@@ -2,10 +2,7 @@ import datetime as dt
 from unittest import mock
 
 from ..helpers.constants import C_SCHOOLDAY_CUTOFF_HOUR
-from ..helpers.DateCheckers import (Transform1Hour,
-                                    TransformNextDay,
-                                    TransformAfterSchoolOr1Hour,
-                                    )
+from ..helpers.DateCheckers import Transform1Hour, TransformAfterSchoolOr1Hour, TransformNextDay
 
 
 class TestDateTransformers:
@@ -16,7 +13,7 @@ class TestDateTransformers:
         test_dt = dt.datetime(year=2024, month=1, day=1, hour=12, minute=3)
         test_new_dt = objID.transform(test_dt)
 
-        assert (test_new_dt-test_dt).total_seconds() == (60*60)
+        assert (test_new_dt - test_dt).total_seconds() == (60 * 60)
 
     def test_transform_next_day(self):
 
@@ -26,7 +23,7 @@ class TestDateTransformers:
 
         assert test_new_dt.day == 2
         assert test_new_dt.hour == 9
-    
+
     def test_after_school(self):
 
         objID = TransformAfterSchoolOr1Hour()
@@ -43,4 +40,4 @@ class TestDateTransformers:
         test_new_dt = objID.transform(test_dt)
 
         assert test_new_dt.day == 1
-        assert test_new_dt.hour == C_SCHOOLDAY_CUTOFF_HOUR+1
+        assert test_new_dt.hour == C_SCHOOLDAY_CUTOFF_HOUR + 1

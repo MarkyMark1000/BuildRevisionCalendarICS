@@ -44,18 +44,12 @@ def build_basic_topic_dictionary(
 
     next_dt = start_datetime
     next_dt = _validate_or_find_next_hour(ret, next_dt)
-    ret[int(next_dt.timestamp())] = {
-        "title": subject + ",  " + topic + ",  Start",
-        "dt": next_dt,
-    }
+    ret[int(next_dt.timestamp())] = {"title": subject + ",  " + topic + ",  Start", "dt": next_dt}
     print(int(next_dt.timestamp()), ", ", next_dt, subject + ",  " + topic + ",  Start")
     # Always add 1 hour no matter what
     next_dt += timedelta(hours=1)
     next_dt = _validate_or_find_next_hour(ret, next_dt)
-    ret[int(next_dt.timestamp())] = {
-        "title": subject + ",  " + topic + ",  1 Hr",
-        "dt": next_dt,
-    }
+    ret[int(next_dt.timestamp())] = {"title": subject + ",  " + topic + ",  1 Hr", "dt": next_dt}
     print(int(next_dt.timestamp()), ", ", next_dt, subject + ",  " + topic + ",  1 Hr")
 
     for k, v in datesteps.items():
@@ -66,9 +60,7 @@ def build_basic_topic_dictionary(
             "title": subject + ",  " + topic + ",  " + k,
             "dt": next_dt,
         }
-        print(
-            int(next_dt.timestamp()), ", ", next_dt, subject + ",  " + topic + ",  " + k
-        )
+        print(int(next_dt.timestamp()), ", ", next_dt, subject + ",  " + topic + ",  " + k)
 
     return ret
 
@@ -99,9 +91,7 @@ def build_calendar(start_datetime: datetime):
         topic_row = control[subject]
         actual_topic = data[subject][topic_row]
 
-        build_basic_topic_dictionary(
-            ret, current_dt, subject=subject, topic=actual_topic
-        )
+        build_basic_topic_dictionary(ret, current_dt, subject=subject, topic=actual_topic)
 
         current_dt = _validate_or_find_next_hour(ret, current_dt)
 

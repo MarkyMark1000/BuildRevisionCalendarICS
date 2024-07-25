@@ -186,10 +186,7 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
         # Change is_invalid_weekday_and_hour to validate
         ret = False
         for row in self._data:
-            if (
-                input_datetime.weekday() == row["weekday"]
-                and input_datetime.hour == row["hour"]
-            ):
+            if input_datetime.weekday() == row["weekday"] and input_datetime.hour == row["hour"]:
                 ret = True
                 break
 
@@ -214,9 +211,7 @@ class SchoolHolidayData(BaseDateChecker):
                 start_date = rdata[0].strip()
                 end_date = rdata[1].strip()
                 start_date = dt.datetime.strptime(start_date, "%d-%B-%Y")
-                end_date = dt.datetime.strptime(end_date, "%d-%B-%Y").replace(
-                    hour=23, minute=59
-                )
+                end_date = dt.datetime.strptime(end_date, "%d-%B-%Y").replace(hour=23, minute=59)
                 if (end_date - start_date).total_seconds() < 0:
                     raise Exception(f"Invalid Start/End date: {start_date}, {end_date}")
                 self._data.append({"start_date": start_date, "end_date": end_date})
@@ -292,9 +287,7 @@ class CheckSchoolHolidayTime(SchoolHolidayData):
         ret = super().validate(input_datetime=input_datetime)
 
         # If a school holiday and invalid weekday/hour
-        ret = ret and self._invalid_weekday_and_hour.validate(
-            input_datetime=input_datetime
-        )
+        ret = ret and self._invalid_weekday_and_hour.validate(input_datetime=input_datetime)
 
         self._log(ret)
         return ret
