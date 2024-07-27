@@ -21,6 +21,8 @@ help:
 	@echo "make isort	    		- Apply isort"
 	@echo "make flake8	    		- Apply flake8"
 	@echo "make doc		    		- Apply pydocstring"
+	@echo "Tests:"
+	@echo "make test	    		- Unittest"
 	@echo ""
 
 clean:
@@ -56,4 +58,11 @@ doc:
 	@echo "*** make virtual env ***"
 	@echo ""
 	( pydocstyle . )
+	@echo ""
+
+test:
+	@echo ""
+	@echo "*** unittest ***"
+	@echo ""
+	( pytest ./tests/ )
 	@echo ""
