@@ -1,8 +1,8 @@
 import datetime as dt
 
-from ..helpers.InvalidDates import InvalidDates
-from ..helpers.InvalidWeekdayAndHour import InvalidWeekdayAndHour
-from ..helpers.SchoolHolidays import SchoolHolidays
+from ..helpers import InvalidDates
+from ..helpers import InvalidWeekdayAndHour
+from ..helpers import SchoolHolidays
 from ..helpers.TimeAdjuster import TimeAdjuster
 
 
