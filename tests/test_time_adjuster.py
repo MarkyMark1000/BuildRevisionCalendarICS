@@ -1,7 +1,5 @@
 import datetime as dt
 
-import pytest
-
 from ..helpers.InvalidDates import InvalidDates
 from ..helpers.InvalidWeekdayAndHour import InvalidWeekdayAndHour
 from ..helpers.SchoolHolidays import SchoolHolidays

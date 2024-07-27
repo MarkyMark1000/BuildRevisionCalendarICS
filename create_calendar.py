@@ -41,7 +41,18 @@ def _validate_or_find_next_hour(ret: dict, input_datetime: datetime) -> datetime
 def build_basic_topic_dictionary(
     ret: dict, start_datetime: datetime, subject: str, topic: str
 ) -> dict:
+    """Builds some topic data.
 
+    Args:
+        ret (dict): dictionary of datetimes in unix timestamp format to record
+        times of revision.   Dictionary is also returned by the function.
+        start_datetime (datetime): a datetime
+        subject (str): taken from files in setup_data, it is the subject being studied
+        topic (str): taken from setup_data, topic of the subject being studied
+
+    Returns:
+        dict: unix timestamp format to recor times, subject and topic for revision.
+    """
     next_dt = start_datetime
     next_dt = _validate_or_find_next_hour(ret, next_dt)
     ret[int(next_dt.timestamp())] = {"title": subject + ",  " + topic + ",  Start", "dt": next_dt}
@@ -66,7 +77,11 @@ def build_basic_topic_dictionary(
 
 
 def build_calendar(start_datetime: datetime):
+    """Build a calendar file.
 
+    Args:
+        start_datetime (datetime): start date and time for the calendar
+    """
     print("\n")
     print("-" * 15)
     print("START")

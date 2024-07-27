@@ -1,4 +1,4 @@
-from ics import Calendar, Event
+from ics import Calendar, Event # type: ignore
 
 c = Calendar()
 e = Event()

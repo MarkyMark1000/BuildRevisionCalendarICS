@@ -17,6 +17,10 @@ help:
 	@echo "make clean	    		- DANGER - remove .py files, venv, coverage etc."
 	@echo "Setup:"
 	@echo "make venv	    		- Make the virtual environment."
+	@echo "Code Formatting:"
+	@echo "make isort	    		- Apply isort"
+	@echo "make flake8	    		- Apply flake8"
+	@echo "make doc		    		- Apply pydocstring"
 	@echo ""
 
 clean:
@@ -31,4 +35,25 @@ venv:
 	@echo "*** make virtual env ***"
 	@echo ""
 	(rm -rf venv; python3 -m venv venv; source venv/bin/activate; pip3 install -r requirements.txt; )
+	@echo ""
+
+isort:
+	@echo ""
+	@echo "*** isort ***"
+	@echo ""
+	( isort . )
+	@echo ""
+
+flake8:
+	@echo ""
+	@echo "*** make virtual env ***"
+	@echo ""
+	(flake8 . )
+	@echo ""
+
+doc:
+	@echo ""
+	@echo "*** make virtual env ***"
+	@echo ""
+	( pydocstyle . )
 	@echo ""

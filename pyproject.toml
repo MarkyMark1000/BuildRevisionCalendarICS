@@ -9,11 +9,17 @@ line_length = 100
 skip = [".gitignore", "venv", ".flake8", ".git"]
 
 [tool.pydocstyle]
+match-dir = '^(venv)'
+match = '.*\.py'
 convention = "google"
+add-ignore = 'D100,D104'
 
 [tool.mypy]
 python_version = "3.9"
-exclude = ["tests"]
+exclude = [
+    "tests",
+    "venv",
+]
 # --strict
 disallow_any_generics = true
 disallow_untyped_defs = true
@@ -24,3 +30,4 @@ warn_return_any = true
 implicit_reexport = false
 strict_equality = true
 # --strict end
+
