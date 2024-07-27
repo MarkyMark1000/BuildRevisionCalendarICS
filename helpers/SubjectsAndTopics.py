@@ -1,28 +1,32 @@
-import os
 import datetime as dt
+import os
 from dataclasses import dataclass
+
 from .constants import C_DATESTEPS
 
+
 @dataclass
-class topic():
+class topic:
     description: str
     timedelta_key: str
     timedelta: dt.timedelta
 
+
 @dataclass
-class subject():
+class subject:
     name: str
     topics: list[topic]
 
-class subject_loader():
+
+class subject_loader:
 
     def _get_timedelta(self, timedelta_key):
-        
+
         for k, v in C_DATESTEPS.items():
             if k.upper() == timedelta_key.strip().upper():
                 return v
-        
-        raise Exception(f'Could not find timedelta: {timedelta_key}')
+
+        raise Exception(f"Could not find timedelta: {timedelta_key}")
 
     def _load_topics(self, path: str) -> list[topic]:
         """
@@ -35,31 +39,25 @@ class subject_loader():
                 str_topic = row.strip()
                 data = str_topic.split(",")
 
-                if len(data)<2:
+                if len(data) < 2:
                     td = None
                 else:
                     str_topic = data[0]
                     td = self._get_timedelta(data[1])
-                
-                objTopic = topic(
-                    description = str_topic,
-                    timedelta_key = data[1],
-                    timedelta = td
-                )
+
+                objTopic = topic(description=str_topic, timedelta_key=data[1], timedelta=td)
                 result.append(objTopic)
 
         return result
 
     def load(self, name: str, path: str) -> subject:
-        
+
         topics = self._load_topics(path)
 
-        return subject(
-            name = name,
-            topics = topics
-        )
+        return subject(name=name, topics=topics)
 
-class subjects_loader():
+
+class subjects_loader:
 
     _subject_loader: subject_loader
 
@@ -79,10 +77,7 @@ class subjects_loader():
 
             file_path = directory_path + "//" + filename
 
-            subject = self._subject_loader.load(
-                name=filename_noend,
-                path = file_path
-            )
+            subject = self._subject_loader.load(name=filename_noend, path=file_path)
 
             result.append(subject)
 
