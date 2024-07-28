@@ -16,6 +16,7 @@ class topic:
 class subject:
     name: str
     topics: list[topic]
+    current_topic: int = 0
 
 
 class subject_loader:
