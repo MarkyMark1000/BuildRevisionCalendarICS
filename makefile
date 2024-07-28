@@ -20,7 +20,7 @@ help:
 	@echo "Code Formatting:"
 	@echo "make isort	    		- Apply isort"
 	@echo "make flake8	    		- Apply flake8"
-	@echo "make doc		    		- Apply pydocstring"
+	@echo "make doc		    	- Apply pydocstring"
 	@echo "Tests:"
 	@echo "make test	    		- Unittest"
 	@echo ""
