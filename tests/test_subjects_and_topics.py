@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from ..helpers.constants import C_DATESTEPS
+from ..helpers.DateSteps import C_DATESTEPS
 from ..helpers.SubjectsAndTopics import subject, subject_loader, topic
 
 
