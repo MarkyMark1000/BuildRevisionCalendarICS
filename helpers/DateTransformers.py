@@ -32,6 +32,15 @@ class TransformNextDay(BaseDateTransformer):
         return dt_temp
 
 
+class TransformStartOfDay(BaseDateTransformer):
+
+    def transform(self, input_datetime: dt.datetime) -> dt.datetime:
+        dt_temp = input_datetime
+        dt_temp = dt_temp.replace(hour=9, minute=0)
+        self._log(dt_temp)
+        return dt_temp
+
+
 class TransformAfterSchoolOr1Hour(BaseDateTransformer):
 
     def transform(self, input_datetime: dt.datetime) -> dt.datetime:

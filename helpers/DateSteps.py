@@ -1,5 +1,6 @@
 import datetime as dt
 
+# ORDER OF KEYS IS IMPORTANT - ASCENDING
 C_DATESTEPS = {
     "now": dt.timedelta(0),
     "1 hour": dt.timedelta(hours=1),

@@ -1,6 +1,7 @@
 import datetime as dt
 
-from ..helpers.DateCheckers import CheckIsDinnerTime, CheckIsLunchTime, Transform1Hour
+from ..helpers.DateCheckers import CheckIsDinnerTime, CheckIsLunchTime
+from ..helpers.DateTransformers import Transform1Hour
 from ..helpers.DCTContainer import DCTContainer
 
 

@@ -35,7 +35,7 @@ class TimeLineBuilder:
 
         return next_dt
 
-    def _get_topics_for_timeline(
+    def _get_calendar_events_for_timeline(
         self, current_timeline: dict, subject: subject, topic: topic, start_datetime: dt.datetime
     ) -> dict[CalendarEvent]:
 
@@ -43,24 +43,21 @@ class TimeLineBuilder:
 
         # Populate the first item on the timeline
         cur_datestep = datestep(input_datetime=start_datetime, current_step=topic.timedelta_key)
-        cur_calendar = CalendarEvent(
-            cal_datestep=cur_datestep, subject=subject.name, topic=topic.description
-        )
-        ret[int(cur_calendar.cal_datestep.current_datetime.timestamp())] = cur_calendar
 
         # Populate remaining items on the timeline
         while cur_datestep is not None:
-
-            cur_datestep = cur_datestep.get_next_datestep()
-            next_time = self._find_next_datetime_if_necessary(
-                current_timeline=current_timeline, input_datetime=cur_datestep.current_datetime
-            )
-            cur_datestep.current_datetime = next_time
 
             cur_calendar = CalendarEvent(
                 cal_datestep=cur_datestep, subject=subject.name, topic=topic.description
             )
             ret[int(cur_calendar.cal_datestep.current_datetime.timestamp())] = cur_calendar
+
+            cur_datestep = cur_datestep.get_next_datestep()
+            if cur_datestep:
+                next_time = self._find_next_datetime_if_necessary(
+                    current_timeline=current_timeline, input_datetime=cur_datestep.current_datetime
+                )
+                cur_datestep.current_datetime = next_time
 
         return ret
 
@@ -72,8 +69,13 @@ class TimeLineBuilder:
         subjects = copy.deepcopy(input_subjects)
 
         ret = {}
+
         current_subject = 0
+
         current_datetime = start_datetime
+        current_datetime = self._find_next_datetime_if_necessary(
+            current_timeline=ret, input_datetime=current_datetime
+        )
 
         while len(subjects) > 0:
 
@@ -84,12 +86,8 @@ class TimeLineBuilder:
             topic = subject.topics[subject.current_topic]
 
             # Add the topic into a timeline, then add it to ret
-            timeline = self._get_topics_for_timeline(
-                self,
-                current_timeline=ret,
-                subject=subject,
-                topic=topic,
-                start_datetime=current_datetime,
+            timeline = self._get_calendar_events_for_timeline(
+                current_timeline=ret, subject=subject, topic=topic, start_datetime=current_datetime
             )
             ret.update(timeline)
 

@@ -4,6 +4,7 @@ from unittest import mock
 from ..helpers.DateCheckers import (
     CheckInvalidDates,
     CheckInvalidWeekdayAndHour,
+    CheckIsBeforeStartOfDay,
     CheckIsDinnerTime,
     CheckIsLunchTime,
     CheckIsPastEndOfDay,
@@ -43,6 +44,18 @@ class TestDateCheckers:
 
         objID = CheckIsPastEndOfDay()
         test_dt = dt.datetime(year=2024, month=1, day=1, hour=21, minute=3)
+        assert objID.validate(input_datetime=test_dt)
+
+    def test_is_before_start_day_false(self):
+
+        objID = CheckIsBeforeStartOfDay()
+        test_dt = dt.datetime(year=2024, month=1, day=1, hour=19, minute=3)
+        assert not objID.validate(input_datetime=test_dt)
+
+    def test_is_before_start_day_true(self):
+
+        objID = CheckIsBeforeStartOfDay()
+        test_dt = dt.datetime(year=2024, month=1, day=1, hour=1, minute=3)
         assert objID.validate(input_datetime=test_dt)
 
     def test_is_endofday_false(self):
