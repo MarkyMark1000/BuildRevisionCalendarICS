@@ -62,7 +62,7 @@ class CheckInvalidDates(BaseDateChecker):
 
                 date_value = line.strip()
                 date_value = dt.datetime.strptime(date_value, "%d-%B-%Y")
-                self._data.append(date_value)
+                ret.append(date_value)
 
         return ret
 
@@ -135,17 +135,18 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
             for line in file:
 
                 line_strip = line.strip()
-                line_values = line_strip.split(" ")
+                if len(line_strip) > 0:
+                    line_values = line_strip.split(" ")
 
-                weekday = line_values[0]
+                    weekday = line_values[0]
 
-                hour = line_values[1]
-                hour = hour.split(":")
-                hour = int(hour[0])
+                    hour = line_values[1]
+                    hour = hour.split(":")
+                    hour = int(hour[0])
 
-                wd = self._get_weekday_from_string(weekday)
+                    wd = self._get_weekday_from_string(weekday)
 
-                self._data.append({"weekday": wd, "hour": hour})
+                    ret.append({"weekday": wd, "hour": hour})
 
         return ret
 
@@ -185,7 +186,7 @@ class SchoolHolidayData(BaseDateChecker):
                 end_date = dt.datetime.strptime(end_date, "%d-%B-%Y").replace(hour=23, minute=59)
                 if (end_date - start_date).total_seconds() < 0:
                     raise Exception(f"Invalid Start/End date: {start_date}, {end_date}")
-                self._data.append({"start_date": start_date, "end_date": end_date})
+                ret.append({"start_date": start_date, "end_date": end_date})
 
         return ret
 

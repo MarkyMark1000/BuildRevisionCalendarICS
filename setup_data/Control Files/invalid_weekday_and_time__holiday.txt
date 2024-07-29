@@ -25,3 +25,7 @@ saturday 20:00
 sunday 09:00
 sunday 10:00
 sunday 11:00
+sunday 17:00
+sunday 18:00
+sunday 19:00
+sunday 20:00

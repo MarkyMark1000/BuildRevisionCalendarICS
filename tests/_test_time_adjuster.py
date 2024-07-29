@@ -1,7 +1,7 @@
 import datetime as dt
 
 from ..helpers import InvalidDates, InvalidWeekdayAndHour, SchoolHolidays
-from ..helpers.TimeAdjuster import TimeAdjuster
+from ..helpers._TimeAdjuster import TimeAdjuster
 
 
 class TestTimeAdjuster:
