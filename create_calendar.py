@@ -1,9 +1,11 @@
 import datetime as dt
-from helpers.DCTContainer import DCTContainer
+
 import helpers.DateCheckers as dc
 import helpers.DateTransformers as dtf
+import helpers.SubjectsAndTopics as st
+from helpers.DCTContainer import DCTContainer
 
-'''
+"""
 # Start on Monday the 3rd of June
 dt_start = dt.datetime(year=2024, month=6, day=3)
 
@@ -43,7 +45,8 @@ for i in range(len(expected_dts_1), len(expected_dts_2) + len(expected_dts_2)):
     assert timeline[tl_key].subject == "subject 2"
     assert timeline[tl_key].topic == "topic 2"
 
-'''
+"""
+
 
 def _build_dct_container() -> DCTContainer:
     """setup all of the containers and transformers used by the
@@ -70,13 +73,12 @@ def _build_dct_container() -> DCTContainer:
             dc.CheckInvalidDates(path="./setup_data/Control Files/invalid_dates.txt"),
             dc.CheckSchoolTime(
                 invalid_weekday_and_hour=invalid_school_wd_hour,
-                path="./setup_data/Control Files/school_holidays.txt"
+                path="./setup_data/Control Files/school_holidays.txt",
             ),
             dc.CheckSchoolHolidayTime(
                 invalid_weekday_and_hour=invalid_holiday_wd_hour,
-                path="./setup_data/Control Files/school_holidays.txt"
-            )
-
+                path="./setup_data/Control Files/school_holidays.txt",
+            ),
         ],
         date_transformers=[
             dtf.TransformStartOfDay(),
@@ -85,18 +87,38 @@ def _build_dct_container() -> DCTContainer:
             dtf.TransformNextDay(),
             dtf.TransformNextDay(),
             dtf.TransformAfterSchoolOr1Hour(),
-            dtf.Transform1Hour()
+            dtf.Transform1Hour(),
         ],
     )
 
+
+def _build_subjects_and_topics() -> list[st.subject]:
+
+    subject_loader = st.subject_loader()
+
+    subjects_loader = st.subjects_loader(loader=subject_loader)
+
+    subjects_and_topics = subjects_loader.load(directory_path="./setup_data/1Hr Files")
+
+    return subjects_and_topics
+
+
 def build_calendars(input_datetime: dt.datetime):
-    
+
+    # Build the date checker and transformers.
     dct_container = _build_dct_container()
 
+    # Extract the subjects and topics
+    subjects_and_topics = _build_subjects_and_topics()
+
+    # Initiate the timeline builder
+
+    # Build the timeline
+
+    # Clean output directory and Use the Result Builders to
+    # output the files
+
     breakpoint()
-
-    print(dct_container)
-
 
 
 if __name__ == "__main__":
@@ -104,6 +126,4 @@ if __name__ == "__main__":
     # code to build the calendar
     start_datetime = dt.datetime(year=2024, month=7, day=20, hour=9)
 
-    build_calendars(
-         input_datetime=start_datetime
-        )
+    build_calendars(input_datetime=start_datetime)

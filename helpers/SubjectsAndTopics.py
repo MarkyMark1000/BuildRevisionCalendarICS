@@ -21,14 +21,6 @@ class subject:
 
 class subject_loader:
 
-    def _get_timedelta(self, timedelta_key):
-
-        for k, v in C_DATESTEPS.items():
-            if k.upper() == timedelta_key.strip().upper():
-                return v
-
-        raise Exception(f"Could not find timedelta: {timedelta_key}")
-
     def _load_topics(self, path: str) -> list[topic]:
         """
         This is easy to mock in the tests
@@ -38,15 +30,20 @@ class subject_loader:
             for row in file:
 
                 str_topic = row.strip()
+                td_key = tuple(C_DATESTEPS.keys())[0]
+                td = C_DATESTEPS[td_key]
+
                 data = str_topic.split(",")
 
-                if len(data) < 2:
-                    td = None
-                else:
-                    str_topic = data[0]
-                    td = self._get_timedelta(data[1])
+                if len(data) > 1:
+                    if data[1].strip() not in C_DATESTEPS.keys():
+                        raise Exception(f"Unrecognised key: {data[1]}")
+                    else:
+                        str_topic = data[0].strip()
+                        td_key = data[1].strip()
+                        td = C_DATESTEPS[td_key]
 
-                objTopic = topic(description=str_topic, timedelta_key=data[1], timedelta=td)
+                objTopic = topic(description=str_topic, timedelta_key=td_key, timedelta=td)
                 result.append(objTopic)
 
         return result

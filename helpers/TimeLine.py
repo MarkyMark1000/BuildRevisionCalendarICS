@@ -37,7 +37,7 @@ class TimeLineBuilder:
 
     def _get_calendar_events_for_timeline(
         self, current_timeline: dict, subject: subject, topic: topic, start_datetime: dt.datetime
-    ) -> dict[int,CalendarEvent]:
+    ) -> dict[int, CalendarEvent]:
 
         ret = {}
 

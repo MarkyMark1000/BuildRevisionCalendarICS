@@ -1,23 +1,27 @@
-from abc import ABC, abstractmethod
-from ics import Calendar, Event
-from .TimeLine import CalendarEvent
-import pytz
 import datetime as dt
+from abc import ABC, abstractmethod
+
+import pytz
+from ics import Calendar, Event
+
+from .TimeLine import CalendarEvent
+
 
 class ResultBuilderBase(ABC):
-    
+
     _path: str
 
     def __init__(self, path):
         self._path = path
-    
+
     @property
     def path(self):
         return self._path
-    
+
     @abstractmethod
     def build(self, timeline: list[CalendarEvent]):
         pass
+
 
 class ICSResultBuilder(ResultBuilderBase):
 
@@ -39,11 +43,10 @@ class ICSResultBuilder(ResultBuilderBase):
             e.begin = dt_temp
             e.duration = dt.timedelta(minutes=50)
             ret.events.add(e)
-        
-        return ret
-    
 
-    def build(self, timeline: dict[int,CalendarEvent]):
+        return ret
+
+    def build(self, timeline: dict[int, CalendarEvent]):
 
         cal = self._populate_calendar(timeline=timeline)
 
@@ -55,7 +58,7 @@ class ICSResultBuilder(ResultBuilderBase):
 
 class CSVListResultBuilder(ResultBuilderBase):
 
-    def build(self, timeline: dict[int,CalendarEvent]):
+    def build(self, timeline: dict[int, CalendarEvent]):
 
         sorted_keys = sorted(timeline.keys())
 
@@ -68,7 +71,9 @@ class CSVListResultBuilder(ResultBuilderBase):
                 dt = cal_event.cal_datestep.current_datetime
                 dt_str = f"{dt:%d %B, %Y %H:%M},"
 
-                title_str = f"{cal_event.subject} - {cal_event.topic} - {cal_event.cal_datestep._datestep}"
+                title_str = (
+                    f"{cal_event.subject} - {cal_event.topic} - {cal_event.cal_datestep._datestep}"
+                )
 
                 line_str = dt_str + title_str
 

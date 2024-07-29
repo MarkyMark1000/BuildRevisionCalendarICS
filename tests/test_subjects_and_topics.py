@@ -1,30 +1,11 @@
-import datetime as dt
 from unittest import mock
 
 import pytest
 
-from ..helpers.DateSteps import C_DATESTEPS
 from ..helpers.SubjectsAndTopics import subject, subject_loader, topic
 
 
 class TestSubjectLoader:
-
-    def test_timedelta_upper_and_lower(self):
-
-        objSL = subject_loader()
-
-        for k in C_DATESTEPS.keys():
-
-            td = objSL._get_timedelta(k)
-            assert isinstance(td, dt.timedelta)
-
-            k_u = k.upper()
-            td = objSL._get_timedelta(k_u)
-            assert isinstance(td, dt.timedelta)
-
-            k_l = k.lower()
-            td = objSL._get_timedelta(k_l)
-            assert isinstance(td, dt.timedelta)
 
     def test_timedelta_not_present(self):
 
