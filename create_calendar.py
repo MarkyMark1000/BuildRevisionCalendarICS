@@ -1,4 +1,5 @@
 import datetime as dt
+import os
 
 import helpers.DateCheckers as dc
 import helpers.DateTransformers as dtf
@@ -6,48 +7,7 @@ import helpers.SubjectsAndTopics as st
 from helpers.DCTContainer import DCTContainer
 from helpers.TimeLine import TimeLineBuilder
 
-"""
-# Start on Monday the 3rd of June
-dt_start = dt.datetime(year=2024, month=6, day=3)
-
-dct_container = self._build_dct_container()
-
-objTLB = TimeLineBuilder(input_dct_container=dct_container)
-
-subjects = self._build_subjects_and_topics()
-
-timeline = objTLB.build_timeline(start_datetime=dt_start, input_subjects=subjects)
-
-# Should have 2 events for every timestep
-assert len(timeline) == 2 * len(C_DATESTEPS.values())
-
-# Check the actual values
-expected_dts_1 = self._build_expected_datetimes_1()
-expected_dts_2 = self._build_expected_datetimes_2()
-
-assert (len(expected_dts_1) + len(expected_dts_2)) == len(timeline)
-
-for i in range(0, len(expected_dts_1)):
-
-    tl_key = tuple(timeline.keys())[i]
-
-    assert expected_dts_1[i] == timeline[tl_key].cal_datestep.current_datetime
-    assert timeline[tl_key].subject == "subject 1"
-    assert timeline[tl_key].topic == "topic 1"
-
-for i in range(len(expected_dts_1), len(expected_dts_2) + len(expected_dts_2)):
-
-    tl_key = tuple(timeline.keys())[i]
-
-    assert (
-        expected_dts_2[i - len(expected_dts_1)]
-        == timeline[tl_key].cal_datestep.current_datetime
-    )
-    assert timeline[tl_key].subject == "subject 2"
-    assert timeline[tl_key].topic == "topic 2"
-
-"""
-
+C_OUTPUT_DIRECTOR = "./result_data"
 
 def _build_dct_container() -> DCTContainer:
     """setup all of the containers and transformers used by the
@@ -103,6 +63,17 @@ def _build_subjects_and_topics() -> list[st.subject]:
 
     return subjects_and_topics
 
+def _clear_output_directory():
+
+    breakpoint()
+    for filename in os.listdir(C_OUTPUT_DIRECTOR):
+
+        file = os.path.join(C_OUTPUT_DIRECTOR, filename)
+
+        if file.strip()[-3:] != ".md":
+
+            os.remove(file)
+
 
 def build_calendars(input_datetime: dt.datetime):
 
@@ -122,7 +93,8 @@ def build_calendars(input_datetime: dt.datetime):
     )
 
     # Clean output directory and Use the Result Builders to
-    
+    _clear_output_directory()
+
     # output the files
 
     breakpoint()
