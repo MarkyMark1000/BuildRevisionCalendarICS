@@ -4,6 +4,7 @@ import helpers.DateCheckers as dc
 import helpers.DateTransformers as dtf
 import helpers.SubjectsAndTopics as st
 from helpers.DCTContainer import DCTContainer
+from helpers.TimeLine import TimeLineBuilder
 
 """
 # Start on Monday the 3rd of June
@@ -112,10 +113,16 @@ def build_calendars(input_datetime: dt.datetime):
     subjects_and_topics = _build_subjects_and_topics()
 
     # Initiate the timeline builder
+    objTLB = TimeLineBuilder(input_dct_container=dct_container)
 
     # Build the timeline
+    timeline = objTLB.build_timeline(
+        start_datetime=input_datetime,
+        input_subjects=subjects_and_topics
+    )
 
     # Clean output directory and Use the Result Builders to
+    
     # output the files
 
     breakpoint()
