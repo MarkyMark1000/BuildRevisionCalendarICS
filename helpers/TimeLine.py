@@ -80,12 +80,9 @@ class TimeLineBuilder:
         while len(subjects) > 0:
 
             # Get the subject
-            print(f"len: {len(subjects)}")
-            print(f"subject: {current_subject}")
             subject = subjects[current_subject]
 
             # Get the topic
-            print(f"topic: {subject.current_topic}")
             topic = subject.topics[subject.current_topic]
 
             # Add the topic into a timeline, then add it to ret

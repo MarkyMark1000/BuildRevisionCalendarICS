@@ -69,12 +69,12 @@ class CSVListResultBuilder(ResultBuilderBase):
                 cal_event = timeline[k]
 
                 dt = cal_event.cal_datestep.current_datetime
-                dt_str = f"{dt:%d %B, %Y %H:%M},"
+                dt_str = f"{dt:%d %B %Y %H:%M},"
 
                 title_str = (
                     f"{cal_event.subject} - {cal_event.topic} - {cal_event.cal_datestep._datestep}"
                 )
 
-                line_str = dt_str + title_str
+                line_str = dt_str + title_str + "\n"
 
                 my_file.write(line_str)

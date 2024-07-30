@@ -131,3 +131,5 @@ dmypy.json
 
 # VSCode
 *.code-workspace
+
+.DS_Store

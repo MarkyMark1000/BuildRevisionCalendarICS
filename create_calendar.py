@@ -3,11 +3,13 @@ import os
 
 import helpers.DateCheckers as dc
 import helpers.DateTransformers as dtf
+import helpers.ResultBuilder as rb
 import helpers.SubjectsAndTopics as st
 from helpers.DCTContainer import DCTContainer
-from helpers.TimeLine import TimeLineBuilder
+from helpers.TimeLine import CalendarEvent, TimeLineBuilder
 
 C_OUTPUT_DIRECTOR = "./result_data"
+
 
 def _build_dct_container() -> DCTContainer:
     """setup all of the containers and transformers used by the
@@ -63,9 +65,9 @@ def _build_subjects_and_topics() -> list[st.subject]:
 
     return subjects_and_topics
 
+
 def _clear_output_directory():
 
-    breakpoint()
     for filename in os.listdir(C_OUTPUT_DIRECTOR):
 
         file = os.path.join(C_OUTPUT_DIRECTOR, filename)
@@ -73,6 +75,15 @@ def _clear_output_directory():
         if file.strip()[-3:] != ".md":
 
             os.remove(file)
+
+
+def _output_result_data(input_timeline: dict[int, CalendarEvent]):
+
+    ics_rb = rb.ICSResultBuilder(path=C_OUTPUT_DIRECTOR + "/output_calendar.ics")
+    ics_rb.build(timeline=input_timeline)
+
+    csv_rb = rb.CSVListResultBuilder(path=C_OUTPUT_DIRECTOR + "/output_data.csv")
+    csv_rb.build(timeline=input_timeline)
 
 
 def build_calendars(input_datetime: dt.datetime):
@@ -88,16 +99,18 @@ def build_calendars(input_datetime: dt.datetime):
 
     # Build the timeline
     timeline = objTLB.build_timeline(
-        start_datetime=input_datetime,
-        input_subjects=subjects_and_topics
+        start_datetime=input_datetime, input_subjects=subjects_and_topics
     )
 
     # Clean output directory and Use the Result Builders to
     _clear_output_directory()
 
     # output the files
+    _output_result_data(input_timeline=timeline)
 
-    breakpoint()
+    print("-" * 15)
+    print("Finished - check result_data directory!")
+    print("-" * 15)
 
 
 if __name__ == "__main__":
