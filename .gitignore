@@ -133,3 +133,6 @@ dmypy.json
 *.code-workspace
 
 .DS_Store
+
+./result_data/*.ics
+./result_data/*.csv
