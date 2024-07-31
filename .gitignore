@@ -134,5 +134,5 @@ dmypy.json
 
 .DS_Store
 
-./result_data/*.ics
-./result_data/*.csv
+/result_data/*.ics
+/result_data/*.csv

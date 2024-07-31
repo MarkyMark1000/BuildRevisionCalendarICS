@@ -6,8 +6,7 @@ SHELL:=/bin/bash
 #Set help as the default for this makefile.
 .DEFAULT: help
 
-.PHONY: clean help venv su static migrations run run-debug test cov-html black flake8 isort run-dock build-dock
-
+.PHONY: help
 help:
 	@echo ""
 	@echo "PROJECT HELP:"
@@ -23,8 +22,11 @@ help:
 	@echo "make doc		    	- Apply pydocstring"
 	@echo "Tests:"
 	@echo "make test	    		- Unittest"
+	@echo "Run:"
+	@echo "make run	    		- Run create_calendar.py"
 	@echo ""
 
+.PHONY: clean
 clean:
 	@echo ""
 	@echo "*** clean ***"
@@ -32,6 +34,7 @@ clean:
 	(rm -rf venv; rem -rf *.ics; rm -rf *.pyc; find . -type d -name  "__pycache__" -exec rm -r {} +; )
 	@echo ""
 
+.PHONY: venv
 venv:
 	@echo ""
 	@echo "*** make virtual env ***"
@@ -39,6 +42,7 @@ venv:
 	(rm -rf venv; python3 -m venv venv; source venv/bin/activate; pip3 install -r requirements.txt; )
 	@echo ""
 
+.PHONY: isort
 isort:
 	@echo ""
 	@echo "*** isort ***"
@@ -46,6 +50,7 @@ isort:
 	( isort . )
 	@echo ""
 
+.PHONY: flake8
 flake8:
 	@echo ""
 	@echo "*** make virtual env ***"
@@ -53,6 +58,7 @@ flake8:
 	(flake8 . )
 	@echo ""
 
+.PHONY: doc
 doc:
 	@echo ""
 	@echo "*** make virtual env ***"
@@ -60,9 +66,18 @@ doc:
 	( pydocstyle . )
 	@echo ""
 
+.PHONY: test
 test:
 	@echo ""
 	@echo "*** unittest ***"
 	@echo ""
 	( pytest ./tests/ )
+	@echo ""
+
+.PHONY: run
+run:
+	@echo ""
+	@echo "*** run create_calendar.py ***"
+	@echo ""
+	( python3 create_calendar.py )
 	@echo ""
