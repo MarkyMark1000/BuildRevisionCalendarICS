@@ -39,17 +39,18 @@ python3 create_calender.py
 ## BUILD A CALENDAR
 ---
 
-Control Files:
+### Control Files:
 These are used by the datetime checkers to see if a date is invalid, within a school holiday
 and and invalid weekday/hour within or outside of the school holidays.   Update these files
-when you reach a new academic school year.
+when you start revising for a new academic school year.
 
-1Hr Files:
+### 1Hr Files:
 Each file represents a subject and contains a list of topics that can be revised within a
-1 hour time period, ideally 50 minutes.   Add or update these files as necessary before
-building a new calendar.
+1 hour time period (ideally 50 minutes).   Add or update these files as necessary before
+building a new calendar.   You should be able to add a second column to the file if you want
+to override the default start time of 'now' with something like '1 Hour' or '1 Week'. 
 
-create_calendar.py:
+### create_calendar.py:
 Adjust the start_datetime at the bottom of the file and then run the code as follows:
 ```
 python3 create_calender.py

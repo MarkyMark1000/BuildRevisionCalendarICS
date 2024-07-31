@@ -22,6 +22,10 @@ help:
 	@echo "make doc		    	- Apply pydocstring"
 	@echo "Tests:"
 	@echo "make test	    		- Unittest"
+	@echo "Coverage:"
+	@echo "make cov-clean		- Remove coverage directory"
+	@echo "make cov	    		- Run coverage"
+	@echo "make html	    		- Build html report"
 	@echo "Run:"
 	@echo "make run	    		- Run create_calendar.py"
 	@echo ""
@@ -31,7 +35,7 @@ clean:
 	@echo ""
 	@echo "*** clean ***"
 	@echo ""
-	(rm -rf venv; rem -rf *.ics; rm -rf *.pyc; find . -type d -name  "__pycache__" -exec rm -r {} +; )
+	(rm -rf venv; rem -rf *.ics; rm -rf *.pyc; find . -type d -name  "__pycache__" -exec rm -r {} +; rm -rf ./htmlcov;)
 	@echo ""
 
 .PHONY: venv
@@ -72,6 +76,30 @@ test:
 	@echo "*** unittest ***"
 	@echo ""
 	( pytest ./tests/ )
+	@echo ""
+
+.PHONY: cov-clean
+cov-clean:
+	@echo ""
+	@echo "*** coverage-clean ***"
+	@echo ""
+	( rm -rf ./htmlcov )
+	@echo ""
+
+.PHONY: cov
+cov:
+	@echo ""
+	@echo "*** coverage ***"
+	@echo ""
+	( coverage run -m pytest ./tests/ )
+	@echo ""
+
+.PHONY: html
+html:
+	@echo ""
+	@echo "*** html report ***"
+	@echo ""
+	( coverage html )
 	@echo ""
 
 .PHONY: run

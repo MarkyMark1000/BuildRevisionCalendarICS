@@ -12,13 +12,14 @@ C_OUTPUT_DIRECTOR = "./result_data"
 
 
 def _build_dct_container() -> DCTContainer:
-    """setup all of the containers and transformers used by the
+    """Setup DCTContainer.
+    
+    Initiate all of the containers and transformers used by the
     main routine.
 
     Returns:
         DCTContainer: container for all of our date and time concerns.
     """
-
     invalid_school_wd_hour = dc.CheckInvalidWeekdayAndHour(
         path="./setup_data/Control Files/invalid_weekday_and_time__school.txt"
     )
@@ -87,7 +88,15 @@ def _output_result_data(input_timeline: dict[int, CalendarEvent]):
 
 
 def build_calendars(input_datetime: dt.datetime):
+    """Build calendar results.
 
+    This is the main routine that builds the calendar output files within the
+    /result_data/ directory.   It uses the code within the /helpers/ directory
+    and the files within the /setup_data/ directory.
+
+    Args:
+        input_datetime (dt.datetime): start date of when to build calendar from.
+    """
     # Build the date checker and transformers.
     dct_container = _build_dct_container()
 
