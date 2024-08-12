@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from ..helpers.SubjectsAndTopics import subject, subject_loader, topic
+from ..helpers.SubjectsAndTopics import subject, subject_loader, topic, subjects_loader
 
 
 class TestSubjectLoader:
@@ -28,3 +28,30 @@ class TestSubjectLoader:
 
         assert isinstance(ret, subject)
         assert ret.name == "Test Subject"
+    
+    def test_load_file(self):
+
+        objSL = subject_loader()
+
+        ret = objSL.load(name="Test Subject", path="tests/test_data/1Hr Files/test_subject.txt")
+
+        assert isinstance(ret, subject)
+        assert ret.name == "Test Subject"
+        assert len(ret.topics) == 2
+        assert ret.topics[0].description == '1.1 to 1.2'
+        assert ret.topics[0].timedelta_key == 'now'
+        assert ret.topics[1].description == '1.3 to 1.4'
+        assert ret.topics[1].timedelta_key == '1 hour'
+
+class TestSubjectsLoader:
+    
+    def test_load_files(self):
+
+        objSL = subject_loader()
+        objSSL = subjects_loader(loader=objSL)
+
+        ret = objSSL.load(directory_path="tests/test_data/1Hr Files")
+
+        assert isinstance(ret, list)
+        assert len(ret) == 1
+        assert isinstance(ret[0], subject)

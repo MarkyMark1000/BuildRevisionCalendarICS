@@ -86,11 +86,24 @@ class TestDateCheckers:
 
         assert not objID.validate(dt_12)
 
+    def test_invalid_dates_file(self):
+
+        objID = CheckInvalidDates(path="tests/test_data/Control Files/invalid_dates.txt")
+
+        dt_christ = dt.datetime(year=2024, month=12, day=25)
+
+        assert objID.validate(dt_christ)
+
     def test_weekday_and_hour_converter(self):
 
         objID = CheckInvalidWeekdayAndHour(path=None)
 
         assert objID._get_weekday_from_string("monday") == 0
+        assert objID._get_weekday_from_string("TuesDay") == 1
+        assert objID._get_weekday_from_string("wedNesDay") == 2
+        assert objID._get_weekday_from_string("ThurSdaY") == 3
+        assert objID._get_weekday_from_string("fRidAy") == 4
+        assert objID._get_weekday_from_string("SatUrdAy") == 5
         assert objID._get_weekday_from_string("SunDay") == 6
 
     @mock.patch.object(CheckInvalidWeekdayAndHour, "_load_file")
@@ -114,6 +127,14 @@ class TestDateCheckers:
         dt_test = dt.datetime(year=2024, month=7, day=22, hour=15, minute=5)
 
         assert not objID.validate(input_datetime=dt_test)
+
+    def test_invalid_weekday_file(self):
+
+        objID = CheckInvalidWeekdayAndHour(path="tests/test_data/Control Files/invalid_weekday_and_time.txt")
+
+        dt_test = dt.datetime(year=2024, month=8, day=13, hour=17, minute=5)
+
+        assert objID.validate(input_datetime=dt_test)
 
     @mock.patch.object(SchoolHolidayData, "_load_school_holidays")
     def test_is_in_school_holiday(self, mock_load_school_holidays):
@@ -280,5 +301,14 @@ class TestDateCheckers:
         objID = CheckSchoolHolidayTime(invalid_weekday_and_hour=objWDH, path=None)
 
         dt_test = dt.datetime(year=2024, month=7, day=29, hour=18, minute=5)
+
+        assert not objID.validate(input_datetime=dt_test)
+
+    def test_school_holiday_file(self):
+
+        objWDH = CheckInvalidWeekdayAndHour(path="tests/test_data/Control Files/invalid_weekday_and_time.txt")
+        objID = CheckSchoolTime(invalid_weekday_and_hour=objWDH, path="tests/test_data/Control Files/school_holidays.txt")
+
+        dt_test = dt.datetime(year=2024, month=8, day=13, hour=17, minute=5)
 
         assert not objID.validate(input_datetime=dt_test)
