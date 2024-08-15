@@ -7,6 +7,8 @@ from .DateSteps import C_DATESTEPS
 
 @dataclass
 class topic:
+    """Dataclass to represent a topic."""
+
     description: str
     timedelta_key: str
     timedelta: dt.timedelta
@@ -14,17 +16,18 @@ class topic:
 
 @dataclass
 class subject:
+    """Dataclass to represent a subject."""
+
     name: str
     topics: list[topic]
     current_topic: int = 0
 
 
 class subject_loader:
+    """Load subject with topics from file."""
 
     def _load_topics(self, path: str) -> list[topic]:
-        """
-        This is easy to mock in the tests
-        """
+        """This is easy to mock in the tests."""
         result = []
         with open(path, "r") as file:
             for row in file:
@@ -49,13 +52,14 @@ class subject_loader:
         return result
 
     def load(self, name: str, path: str) -> subject:
-
+        """Load subject with topics from file."""
         topics = self._load_topics(path)
 
         return subject(name=name, topics=topics)
 
 
 class subjects_loader:
+    """Load all subjects corresponding topics in a directory."""
 
     _subject_loader: subject_loader
 
@@ -64,7 +68,7 @@ class subjects_loader:
         self._subject_loader = loader
 
     def load(self, directory_path: str) -> list[subject]:
-
+        """Load all subjects corresponding topics in a directory."""
         result = []
 
         dir_list = os.listdir(directory_path)

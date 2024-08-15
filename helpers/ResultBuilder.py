@@ -8,6 +8,7 @@ from .TimeLine import CalendarEvent
 
 
 class ResultBuilderBase(ABC):
+    """Abstract base class for a result builder."""
 
     _path: str
 
@@ -16,14 +17,17 @@ class ResultBuilderBase(ABC):
 
     @property
     def path(self):
+        """Get path to output."""
         return self._path
 
     @abstractmethod
     def build(self, timeline: list[CalendarEvent]):
+        """Build output from timeline."""
         pass
 
 
 class ICSResultBuilder(ResultBuilderBase):
+    """Build an ICS calendar file from timeline."""
 
     def _populate_calendar(self, timeline: dict[int, CalendarEvent]):
 
@@ -47,7 +51,7 @@ class ICSResultBuilder(ResultBuilderBase):
         return ret
 
     def build(self, timeline: dict[int, CalendarEvent]):
-
+        """Build an ICS calendar file from timeline."""
         cal = self._populate_calendar(timeline=timeline)
 
         cal.events
@@ -57,9 +61,10 @@ class ICSResultBuilder(ResultBuilderBase):
 
 
 class CSVListResultBuilder(ResultBuilderBase):
+    """Build a csv file from timeline."""
 
     def build(self, timeline: dict[int, CalendarEvent]):
-
+        """Build a csv file from timeline."""
         sorted_keys = sorted(timeline.keys())
 
         with open(self.path, "w") as my_file:

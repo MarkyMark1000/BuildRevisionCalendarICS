@@ -13,6 +13,7 @@ C_DATESTEPS = {
 
 
 class datestep:
+    """Represents a datetime and it's position in the C_DATESTEPS dictionary."""
 
     _current_datetime: dt.datetime
     _datestep: str
@@ -31,10 +32,12 @@ class datestep:
 
     @property
     def timedelta(self):
+        """Get timedelta for datestep."""
         return C_DATESTEPS[self._datestep]
 
     @property
     def current_datetime(self):
+        """Get current datetime."""
         return self._current_datetime
 
     @current_datetime.setter
@@ -44,7 +47,7 @@ class datestep:
         self._current_datetime = new_datetime
 
     def get_next_datestep(self):
-
+        """Get the next datestep after this datestep using C_DATESTEPS."""
         index = tuple(C_DATESTEPS.keys()).index(self._datestep)
         if index >= len(C_DATESTEPS.keys()) - 1:
             return None

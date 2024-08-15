@@ -12,6 +12,7 @@ datetime.
 
 
 class DCT:
+    """Combine a datechecker and date_transfomer to work together."""
 
     _date_checker: BaseDateChecker
     _date_transformer: BaseDateTransformer
@@ -26,19 +27,21 @@ class DCT:
 
     @property
     def date_checker(self):
+        """Get date_checker."""
         return self._date_checker
 
     @property
     def date_transformer(self):
+        """Get date_transformer."""
         return self._date_transformer
 
 
 class DCTContainer:
-    """
-    Class where we can load up a list of date checkers and containers and
-    then use the transform feature to find the next appropriate date that
-    doesn't conflict with any of the conditions added in the list.
-    see test_dct_container for a basic example.
+    """Store list of DCT objects from a list of checkers and transformers.
+
+    Class can load a list of date checkers and transformers into a list
+    of DCT objects.   This list can then be used by the transform routine
+    to find the next sensible datetime in the calendar timeline.
     """
 
     _dct_data: list
@@ -57,7 +60,7 @@ class DCTContainer:
             )
 
     def transform(self, input_datetime: dt.datetime) -> dt.datetime:
-
+        """Transform input datetime into the next available time that matches criterea."""
         return_datetime = input_datetime
         i = 0
 

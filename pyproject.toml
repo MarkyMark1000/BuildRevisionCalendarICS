@@ -11,7 +11,7 @@ skip = [".gitignore", "venv", ".flake8", ".git"]
 [tool.pydocstyle]
 match-dir = '[^(venv)].*'
 convention = "google"
-add-ignore = 'D100,D104'
+add-ignore = 'D100,D104,D107'
 
 [tool.mypy]
 python_version = "3.9"

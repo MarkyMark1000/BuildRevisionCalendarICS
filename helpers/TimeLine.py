@@ -9,6 +9,7 @@ from .SubjectsAndTopics import subject, topic
 
 @dataclass
 class CalendarEvent:
+    """Dateclass representing a datetime, subject and topic."""
 
     cal_datestep: datestep
     subject: str
@@ -16,6 +17,12 @@ class CalendarEvent:
 
 
 class TimeLineBuilder:
+    """Build a timeline of calendar events.
+
+    Uses an input DCTContainer class to transform dates to the next
+    available datetime.   The DCTContainer can include checks for
+    school holidays, etc etc.
+    """
 
     _dct_container: DCTContainer
 
@@ -64,8 +71,7 @@ class TimeLineBuilder:
     def build_timeline(
         self, start_datetime: dt.datetime, input_subjects: list[subject]
     ) -> dict[int, CalendarEvent]:
-
-        # copy the input, we are going to reduct/remove items from it
+        """Use the start_datetime and list of input subjects to build a timeline."""
         subjects = copy.deepcopy(input_subjects)
 
         ret = {}

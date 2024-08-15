@@ -5,6 +5,7 @@ from .constants import C_LOGGING, C_SCHOOLDAY_CUTOFF_HOUR
 
 
 class BaseDateChecker(ABC):
+    """Abstract Base datechecker class."""
 
     def _log(self, value):
         if C_LOGGING:
@@ -12,42 +13,52 @@ class BaseDateChecker(ABC):
 
     @abstractmethod
     def validate(self, input_datetime: dt.datetime) -> bool:
+        """Validate input_datetime."""
         pass
 
 
 class CheckIsLunchTime(BaseDateChecker):
+    """Check if lunchtime."""
 
     def validate(self, input_datetime: dt.datetime) -> bool:
+        """Check if lunchtime."""
         ret = input_datetime.hour == 12
         self._log(ret)
         return ret
 
 
 class CheckIsDinnerTime(BaseDateChecker):
+    """Check if dinnertime."""
 
     def validate(self, input_datetime: dt.datetime) -> bool:
+        """Check if dinnertime."""
         ret = input_datetime.hour == 17
         self._log(ret)
         return ret
 
 
 class CheckIsPastEndOfDay(BaseDateChecker):
+    """Check if past end of day, ie 20:00."""
 
     def validate(self, input_datetime: dt.datetime) -> bool:
+        """Check if past end of day, ie 20:00."""
         ret = input_datetime.hour > 20
         self._log(ret)
         return ret
 
 
 class CheckIsBeforeStartOfDay(BaseDateChecker):
+    """Check if before start of day, ie 9:00."""
 
     def validate(self, input_datetime: dt.datetime) -> bool:
+        """Check if before start of day, ie 9:00."""
         ret = input_datetime.hour < 9
         self._log(ret)
         return ret
 
 
 class CheckInvalidDates(BaseDateChecker):
+    """Compare datetime to a file of invalid datetimes."""
 
     _data: list
 
@@ -71,7 +82,7 @@ class CheckInvalidDates(BaseDateChecker):
         self._data = self._load_dates(path)
 
     def validate(self, input_datetime: dt.datetime) -> bool:
-        # is_invalid_date to validate
+        """Compare datetime to a file of invalid datetimes."""
         ret = False
         for row in self._data:
             if input_datetime.date() == row.date():
@@ -91,14 +102,16 @@ datetime against those files.
 
 
 class CheckInvalidWeekdayAndHour(BaseDateChecker):
+    """Compare datetime to a file of invalid weekday and hours."""
 
     _data: list
 
-    def _get_weekday_from_string(self, string_weekday: str) -> int:
-        """
-        Returns number value for weekday, ie Monday=0
-        """
+    def __init__(self, path="setup_data/Control Files/invalid_weekday_and_time.txt"):
 
+        self._data = self._load_file(path)
+
+    def _get_weekday_from_string(self, string_weekday: str) -> int:
+        """Returns number value for weekday, ie Monday=0."""
         weekday = string_weekday.upper().strip()
 
         wd = 0
@@ -122,11 +135,7 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
         return wd
 
     def _load_file(self, path: str):
-        """
-        Loads the datafile into a list such as:
-        [{'weekday': 0, 'hour': 12}, ....]
-        """
-
+        """Loads the datafile into a list [{'weekday': 0, 'hour': 12}, ....]."""
         ret = list()
         if not path:
             return ret
@@ -150,12 +159,8 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
 
         return ret
 
-    def __init__(self, path="setup_data/Control Files/invalid_weekday_and_time.txt"):
-
-        self._data = self._load_file(path)
-
     def validate(self, input_datetime: dt.datetime) -> bool:
-        # Change is_invalid_weekday_and_hour to validate
+        """Compare datetime to a file of invalid weekday and hours."""
         ret = False
         for row in self._data:
             if input_datetime.weekday() == row["weekday"] and input_datetime.hour == row["hour"]:
@@ -168,6 +173,7 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
 
 
 class SchoolHolidayData(BaseDateChecker):
+    """Compare datetime to a file of school hoidays."""
 
     _data: list
 
@@ -195,7 +201,7 @@ class SchoolHolidayData(BaseDateChecker):
         self._data = self._load_school_holidays(path=path)
 
     def validate(self, input_datetime: dt.datetime) -> bool:
-        # replace is_within_school_holiday with validate
+        """Compare datetime to a file of school hoidays."""
         ret = False
         for row in self._data:
             if (input_datetime - row["start_date"]).total_seconds() >= 0 and (
@@ -210,6 +216,7 @@ class SchoolHolidayData(BaseDateChecker):
 
 
 class CheckSchoolTime(SchoolHolidayData):
+    """Combine check of valid weekday and time when not in school holidays."""
 
     def __init__(
         self,
@@ -224,7 +231,7 @@ class CheckSchoolTime(SchoolHolidayData):
         self._invalid_weekday_and_hour = invalid_weekday_and_hour
 
     def validate(self, input_datetime: dt.datetime) -> bool:
-
+        """Combine check of valid weekday and time when not in school holidays."""
         # Is it a school holiday:
         ret = super().validate(input_datetime=input_datetime)
 
@@ -240,6 +247,7 @@ class CheckSchoolTime(SchoolHolidayData):
 
 
 class CheckSchoolHolidayTime(SchoolHolidayData):
+    """Combine check of valid weekday and time with school holiday."""
 
     def __init__(
         self,
@@ -254,7 +262,7 @@ class CheckSchoolHolidayTime(SchoolHolidayData):
         self._invalid_weekday_and_hour = invalid_weekday_and_hour
 
     def validate(self, input_datetime: dt.datetime) -> bool:
-
+        """Combine check of valid weekday and time with school holiday."""
         # Is it a school holiday:
         ret = super().validate(input_datetime=input_datetime)
 
