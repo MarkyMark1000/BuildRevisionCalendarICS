@@ -36,6 +36,9 @@ To run the code to build the calender:
 python3 create_calender.py
 ```
 
+This should populate 2 result files within the ./result_data/ directory.   More information
+can be found in the README file within that directory.
+
 ## BUILD A CALENDAR
 ---
 
@@ -48,7 +51,7 @@ when you start revising for a new academic school year.
 Each file represents a subject and contains a list of topics that can be revised within a
 1 hour time period (ideally 50 minutes).   Add or update these files as necessary before
 building a new calendar.   You should be able to add a second column to the file if you want
-to override the default start time of 'now' with something like '1 Hour' or '1 Week'. 
+to override the default start time of 'now' with something like '1 Hour' or '1 Week'.
 
 ### create_calendar.py:
 Adjust the start_datetime at the bottom of the file and then run the code as follows:
@@ -61,7 +64,7 @@ python3 create_calender.py
 
 ### create_calendar.py
 
-This is the main file 
+This is the main file
 
 
 ### HELPERS

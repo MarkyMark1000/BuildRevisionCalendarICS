@@ -9,8 +9,7 @@ line_length = 100
 skip = [".gitignore", "venv", ".flake8", ".git"]
 
 [tool.pydocstyle]
-match-dir = '^(venv)'
-match = '.*\.py'
+match-dir = '[^(venv)].*'
 convention = "google"
 add-ignore = 'D100,D104'
 
@@ -30,4 +29,3 @@ warn_return_any = true
 implicit_reexport = false
 strict_equality = true
 # --strict end
-

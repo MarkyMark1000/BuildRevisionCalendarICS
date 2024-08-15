@@ -130,7 +130,9 @@ class TestDateCheckers:
 
     def test_invalid_weekday_file(self):
 
-        objID = CheckInvalidWeekdayAndHour(path="tests/test_data/Control Files/invalid_weekday_and_time.txt")
+        objID = CheckInvalidWeekdayAndHour(
+            path="tests/test_data/Control Files/invalid_weekday_and_time.txt"
+        )
 
         dt_test = dt.datetime(year=2024, month=8, day=13, hour=17, minute=5)
 
@@ -306,8 +308,13 @@ class TestDateCheckers:
 
     def test_school_holiday_file(self):
 
-        objWDH = CheckInvalidWeekdayAndHour(path="tests/test_data/Control Files/invalid_weekday_and_time.txt")
-        objID = CheckSchoolTime(invalid_weekday_and_hour=objWDH, path="tests/test_data/Control Files/school_holidays.txt")
+        objWDH = CheckInvalidWeekdayAndHour(
+            path="tests/test_data/Control Files/invalid_weekday_and_time.txt"
+        )
+        objID = CheckSchoolTime(
+            invalid_weekday_and_hour=objWDH,
+            path="tests/test_data/Control Files/school_holidays.txt",
+        )
 
         dt_test = dt.datetime(year=2024, month=8, day=13, hour=17, minute=5)
 

@@ -13,7 +13,7 @@ C_OUTPUT_DIRECTOR = "./result_data"
 
 def _build_dct_container() -> DCTContainer:
     """Setup DCTContainer.
-    
+
     Initiate all of the containers and transformers used by the
     main routine.
 
