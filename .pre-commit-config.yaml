@@ -43,4 +43,3 @@ repos:
       - id: pydocstyle
         language: python
         types: [python]
-        args: [--config, "./pyproject.toml"]
