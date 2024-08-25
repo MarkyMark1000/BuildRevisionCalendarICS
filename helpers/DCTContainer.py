@@ -26,12 +26,12 @@ class DCT:
         self._date_transformer = date_transformer
 
     @property
-    def date_checker(self):
+    def date_checker(self) -> BaseDateChecker:
         """Get date_checker."""
         return self._date_checker
 
     @property
-    def date_transformer(self):
+    def date_transformer(self) -> BaseDateTransformer:
         """Get date_transformer."""
         return self._date_transformer
 
@@ -44,9 +44,9 @@ class DCTContainer:
     to find the next sensible datetime in the calendar timeline.
     """
 
-    _dct_data: list
+    _dct_data: list[DCT]
 
-    def __init__(self, date_checkers: list, date_transformers: list):
+    def __init__(self, date_checkers: list[BaseDateChecker], date_transformers: list[BaseDateTransformer]):
 
         if len(date_checkers) != len(date_transformers):
             raise Exception("date_checkers list must be the smae length as date transformers")

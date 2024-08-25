@@ -1,5 +1,6 @@
 import datetime as dt
 from abc import ABC, abstractmethod
+from typing import Any
 
 from .constants import C_LOGGING, C_SCHOOLDAY_CUTOFF_HOUR
 
@@ -7,7 +8,7 @@ from .constants import C_LOGGING, C_SCHOOLDAY_CUTOFF_HOUR
 class BaseDateChecker(ABC):
     """Abstract Base datechecker class."""
 
-    def _log(self, value):
+    def _log(self, value: Any) -> None:
         if C_LOGGING:
             print(self.__class__.__name__, ": ", value)
 
@@ -60,11 +61,11 @@ class CheckIsBeforeStartOfDay(BaseDateChecker):
 class CheckInvalidDates(BaseDateChecker):
     """Compare datetime to a file of invalid datetimes."""
 
-    _data: list
+    _data: list[dt.datetime]
 
-    def _load_dates(self, path: str):
+    def _load_dates(self, path: str) -> list[dt.datetime]:
 
-        ret = list()
+        ret: list[dt.datetime] = list()
         if not path:
             return ret
 
@@ -72,12 +73,12 @@ class CheckInvalidDates(BaseDateChecker):
             for line in file:
 
                 date_value = line.strip()
-                date_value = dt.datetime.strptime(date_value, "%d-%B-%Y")
-                ret.append(date_value)
+                date_dt = dt.datetime.strptime(date_value, "%d-%B-%Y")
+                ret.append(date_dt)
 
         return ret
 
-    def __init__(self, path="setup_data/Control Files/invalid_dates.txt"):
+    def __init__(self, path: str="setup_data/Control Files/invalid_dates.txt"):
 
         self._data = self._load_dates(path)
 
@@ -104,9 +105,9 @@ datetime against those files.
 class CheckInvalidWeekdayAndHour(BaseDateChecker):
     """Compare datetime to a file of invalid weekday and hours."""
 
-    _data: list
+    _data: list[dict[str,int]]
 
-    def __init__(self, path="setup_data/Control Files/invalid_weekday_and_time.txt"):
+    def __init__(self, path: str="setup_data/Control Files/invalid_weekday_and_time.txt"):
 
         self._data = self._load_file(path)
 
@@ -134,9 +135,9 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
 
         return wd
 
-    def _load_file(self, path: str):
+    def _load_file(self, path: str) -> list[dict[str,int]]:
         """Loads the datafile into a list [{'weekday': 0, 'hour': 12}, ....]."""
-        ret = list()
+        ret: list[dict[str,int]] = list()
         if not path:
             return ret
 
@@ -150,12 +151,12 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
                     weekday = line_values[0]
 
                     hour = line_values[1]
-                    hour = hour.split(":")
-                    hour = int(hour[0])
+                    hour_ar = hour.split(":")
+                    hour_int = int(hour_ar[0])
 
                     wd = self._get_weekday_from_string(weekday)
 
-                    ret.append({"weekday": wd, "hour": hour})
+                    ret.append({"weekday": wd, "hour": hour_int})
 
         return ret
 
@@ -175,11 +176,11 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
 class SchoolHolidayData(BaseDateChecker):
     """Compare datetime to a file of school hoidays."""
 
-    _data: list
+    _data: list[dict[str,dt.datetime]]
 
-    def _load_school_holidays(self, path):
+    def _load_school_holidays(self, path: str) -> list[dict[str,dt.datetime]]:
 
-        ret = list()
+        ret: list[dict[str,dt.datetime]] = list()
         if not path:
             return ret
 
@@ -188,15 +189,15 @@ class SchoolHolidayData(BaseDateChecker):
                 rdata = line.split(",")
                 start_date = rdata[0].strip()
                 end_date = rdata[1].strip()
-                start_date = dt.datetime.strptime(start_date, "%d-%B-%Y")
-                end_date = dt.datetime.strptime(end_date, "%d-%B-%Y").replace(hour=23, minute=59)
-                if (end_date - start_date).total_seconds() < 0:
-                    raise Exception(f"Invalid Start/End date: {start_date}, {end_date}")
-                ret.append({"start_date": start_date, "end_date": end_date})
+                start_date_dt = dt.datetime.strptime(start_date, "%d-%B-%Y")
+                end_date_dt = dt.datetime.strptime(end_date, "%d-%B-%Y").replace(hour=23, minute=59)
+                if (end_date_dt - start_date_dt).total_seconds() < 0:
+                    raise Exception(f"Invalid Start/End date: {start_date_dt}, {end_date_dt}")
+                ret.append({"start_date": start_date_dt, "end_date": end_date_dt})
 
         return ret
 
-    def __init__(self, path="setup_data/Control Files/school_holidays.txt"):
+    def __init__(self, path: str="setup_data/Control Files/school_holidays.txt"):
 
         self._data = self._load_school_holidays(path=path)
 

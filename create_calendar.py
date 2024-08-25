@@ -67,7 +67,7 @@ def _build_subjects_and_topics() -> list[st.subject]:
     return subjects_and_topics
 
 
-def _clear_output_directory():
+def _clear_output_directory() -> None:
 
     for filename in os.listdir(C_OUTPUT_DIRECTOR):
 
@@ -78,7 +78,7 @@ def _clear_output_directory():
             os.remove(file)
 
 
-def _output_result_data(input_timeline: dict[int, CalendarEvent]):
+def _output_result_data(input_timeline: dict[int, CalendarEvent]) -> None:
 
     ics_rb = rb.ICSResultBuilder(path=C_OUTPUT_DIRECTOR + "/output_calendar.ics")
     ics_rb.build(timeline=input_timeline)
@@ -87,7 +87,7 @@ def _output_result_data(input_timeline: dict[int, CalendarEvent]):
     csv_rb.build(timeline=input_timeline)
 
 
-def build_calendars(input_datetime: dt.datetime):
+def build_calendars(input_datetime: dt.datetime) -> None:
     """Build calendar results.
 
     This is the main routine that builds the calendar output files within the

@@ -1,5 +1,6 @@
 import datetime as dt
 from abc import ABC, abstractmethod
+from typing import Any
 
 from .constants import C_LOGGING, C_SCHOOLDAY_CUTOFF_HOUR
 
@@ -7,7 +8,7 @@ from .constants import C_LOGGING, C_SCHOOLDAY_CUTOFF_HOUR
 class BaseDateTransformer(ABC):
     """Abstract Base Date Transformer class."""
 
-    def _log(self, value):
+    def _log(self, value: Any) -> None:
         if C_LOGGING:
             print(self.__class__.__name__, ": ", value)
 

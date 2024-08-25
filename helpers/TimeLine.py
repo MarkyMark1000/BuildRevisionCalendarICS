@@ -1,6 +1,7 @@
 import copy
 import datetime as dt
 from dataclasses import dataclass
+from typing import Optional
 
 from .DateSteps import datestep
 from .DCTContainer import DCTContainer
@@ -31,7 +32,7 @@ class TimeLineBuilder:
         self._dct_container = input_dct_container
 
     def _find_next_datetime_if_necessary(
-        self, current_timeline: dict, input_datetime: dt.datetime
+        self, current_timeline: dict[int,CalendarEvent], input_datetime: dt.datetime
     ) -> dt.datetime:
 
         next_dt = self._dct_container.transform(input_datetime=input_datetime)
@@ -43,13 +44,13 @@ class TimeLineBuilder:
         return next_dt
 
     def _get_calendar_events_for_timeline(
-        self, current_timeline: dict, subject: subject, topic: topic, start_datetime: dt.datetime
+        self, current_timeline: dict[int,CalendarEvent], subject: subject, topic: topic, start_datetime: dt.datetime
     ) -> dict[int, CalendarEvent]:
 
         ret = {}
 
         # Populate the first item on the timeline
-        cur_datestep = datestep(input_datetime=start_datetime, current_step=topic.timedelta_key)
+        cur_datestep: Optional[datestep] = datestep(input_datetime=start_datetime, current_step=topic.timedelta_key)
 
         # Populate remaining items on the timeline
         while cur_datestep is not None:
@@ -74,7 +75,7 @@ class TimeLineBuilder:
         """Use the start_datetime and list of input subjects to build a timeline."""
         subjects = copy.deepcopy(input_subjects)
 
-        ret = {}
+        ret: dict[int, CalendarEvent] = {}
 
         current_subject = 0
 
