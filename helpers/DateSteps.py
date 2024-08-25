@@ -1,5 +1,6 @@
 import datetime as dt
 from typing import Optional
+
 from typing_extensions import Self
 
 # ORDER OF KEYS IS IMPORTANT - ASCENDING

@@ -78,7 +78,7 @@ class CheckInvalidDates(BaseDateChecker):
 
         return ret
 
-    def __init__(self, path: str="setup_data/Control Files/invalid_dates.txt"):
+    def __init__(self, path: str = "setup_data/Control Files/invalid_dates.txt"):
 
         self._data = self._load_dates(path)
 
@@ -105,9 +105,9 @@ datetime against those files.
 class CheckInvalidWeekdayAndHour(BaseDateChecker):
     """Compare datetime to a file of invalid weekday and hours."""
 
-    _data: list[dict[str,int]]
+    _data: list[dict[str, int]]
 
-    def __init__(self, path: str="setup_data/Control Files/invalid_weekday_and_time.txt"):
+    def __init__(self, path: str = "setup_data/Control Files/invalid_weekday_and_time.txt"):
 
         self._data = self._load_file(path)
 
@@ -135,9 +135,9 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
 
         return wd
 
-    def _load_file(self, path: str) -> list[dict[str,int]]:
+    def _load_file(self, path: str) -> list[dict[str, int]]:
         """Loads the datafile into a list [{'weekday': 0, 'hour': 12}, ....]."""
-        ret: list[dict[str,int]] = list()
+        ret: list[dict[str, int]] = list()
         if not path:
             return ret
 
@@ -176,11 +176,11 @@ class CheckInvalidWeekdayAndHour(BaseDateChecker):
 class SchoolHolidayData(BaseDateChecker):
     """Compare datetime to a file of school hoidays."""
 
-    _data: list[dict[str,dt.datetime]]
+    _data: list[dict[str, dt.datetime]]
 
-    def _load_school_holidays(self, path: str) -> list[dict[str,dt.datetime]]:
+    def _load_school_holidays(self, path: str) -> list[dict[str, dt.datetime]]:
 
-        ret: list[dict[str,dt.datetime]] = list()
+        ret: list[dict[str, dt.datetime]] = list()
         if not path:
             return ret
 
@@ -197,7 +197,7 @@ class SchoolHolidayData(BaseDateChecker):
 
         return ret
 
-    def __init__(self, path: str="setup_data/Control Files/school_holidays.txt"):
+    def __init__(self, path: str = "setup_data/Control Files/school_holidays.txt"):
 
         self._data = self._load_school_holidays(path=path)
 

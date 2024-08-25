@@ -2,7 +2,7 @@ import datetime as dt
 from abc import ABC, abstractmethod
 
 import pytz
-from ics import Calendar, Event # type: ignore
+from ics import Calendar, Event  # type: ignore
 
 from .TimeLine import CalendarEvent
 
@@ -21,7 +21,7 @@ class ResultBuilderBase(ABC):
         return self._path
 
     @abstractmethod
-    def build(self, timeline: dict[int,CalendarEvent]) -> None:
+    def build(self, timeline: dict[int, CalendarEvent]) -> None:
         """Build output from timeline."""
         pass
 

@@ -46,7 +46,9 @@ class DCTContainer:
 
     _dct_data: list[DCT]
 
-    def __init__(self, date_checkers: list[BaseDateChecker], date_transformers: list[BaseDateTransformer]):
+    def __init__(
+        self, date_checkers: list[BaseDateChecker], date_transformers: list[BaseDateTransformer]
+    ):
 
         if len(date_checkers) != len(date_transformers):
             raise Exception("date_checkers list must be the smae length as date transformers")

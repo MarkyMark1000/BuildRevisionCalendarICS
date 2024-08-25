@@ -20,6 +20,7 @@ help:
 	@echo "make isort	    		- Apply isort"
 	@echo "make flake8	    		- Apply flake8"
 	@echo "make doc		    	- Apply pydocstring"
+	@echo "make mypy		    	- Apply mypy"
 	@echo "Tests:"
 	@echo "make test	    		- Unittest"
 	@echo "Coverage:"
@@ -57,7 +58,7 @@ isort:
 .PHONY: flake8
 flake8:
 	@echo ""
-	@echo "*** make virtual env ***"
+	@echo "*** flake8 ***"
 	@echo ""
 	(flake8 . )
 	@echo ""
@@ -65,9 +66,17 @@ flake8:
 .PHONY: doc
 doc:
 	@echo ""
-	@echo "*** make virtual env ***"
+	@echo "*** pydocstyle ***"
 	@echo ""
 	( pydocstyle . )
+	@echo ""
+
+.PHONY: mypy
+mypy:
+	@echo ""
+	@echo "*** apply mypy ***"
+	@echo ""
+	( mypy . )
 	@echo ""
 
 .PHONY: test
